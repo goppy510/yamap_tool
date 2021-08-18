@@ -1,0 +1,39 @@
+{
+  "name": "Export Report",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "default_locale": "ja_JP",
+  "description": "YAMAPの活動記録を出力する拡張機能です。",
+  "icons": {
+    "16": "./src/assets/tabi_camera_nikki_16.png",
+    "48": "./src/assets/tabi_camera_nikki_48.png",
+    "128": "./src/assets/tabi_camera_nikki_128.png"
+  },
+  "permissions": [
+    "storage",
+    "background",
+    "contextMenus",
+  ],
+  "content_scripts": [{
+    "matches": [
+    ],
+    "js": [
+      "dist/js/app.js",
+      "dist/js/chunk-vendors.js"
+    ]
+  }],
+  "background": {
+    "matches": [
+    ],
+    "scripts": [
+      "src/background.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": {
+      "19": "./src/assets/tabi_camera_nikki_19.png"
+    },
+    "default_title": "Export Report",
+    "default_popup": "popup/popup.html"
+  }
+}
