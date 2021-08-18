@@ -9,9 +9,9 @@
     "128": "src/assets/tabi_camera_nikki_128.png"
   },
   "permissions": [
-    "storage",
     "background",
-    "contextMenus"
+    "contextMenus",
+    "tabs"
   ],
   "content_scripts": [{
     "matches": ["https://yamap.com/activities/*"],
