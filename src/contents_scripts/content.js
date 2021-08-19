@@ -1,7 +1,13 @@
 // popupからメッセージを受け取ったら処理開始
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 
-  if (request.pushed === true) {
+  if (request.url !== undefined) {
+    // バックグラウンドに処理をするように指示
+    const url = request.url;
+    chrome.runtime.sendMessage( {url: url}, function (response) {
+      console.log("OK");
+    } );
+
     console.log(getAuthor());
     console.log(getTitle());
     console.log(getStatus());
@@ -31,20 +37,6 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
       return 'Public';
     }
     return 'Draft';
-  }
-
-  // コメント投稿の可否を取得しMV形式に合わせてreturnする
-  function isCommentable() {
-    // 別ページから取得できるのか？
-    chrome.tabs.getSelected( null, function(tab) {
-      if ( /https:\/\/yamap.com\/activities\/[0-9].+\/comments#post/.test(url) ) {
-        const commentForm = document.getElementsByClassName("CommentForm Comments__CommentForm")[0];
-        if (commentForm === undefined) {
-          return 0;
-        }
-      }
-      return 1;
-    } );
   }
 
   // 投稿日時は情報がないので登山を開始した日を登山日とする
