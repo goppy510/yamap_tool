@@ -13,24 +13,18 @@
     "tabs"
   ],
   "content_scripts": [{
-    "matches": ["https://yamap.com/activities/*/article", "https://yamap.com/activities/*/comments#post"],
-    "js": [
-      "dist/js/app.js",
-      "dist/js/chunk-vendors.js"
-    ]
+    "matches": ["https://yamap.com/activities/*/article"],
+    "js": ["src/contents_scripts/content.js"]
   }],
   "background": {
-    "matches": [
-    ],
-    "scripts": [
-      "src/background.js"
-    ]
+    "matches": ["https://yamap.com/activities/*/comments#post"],
+    "scripts": ["src/background/background.js"]
   },
   "browser_action": {
     "default_icon": {
       "19": "src/assets/tabi_camera_nikki_19.png"
     },
     "default_title": "Export Report",
-    "default_popup": "popup/popup.html"
+    "default_popup": "src/popup/popup.html"
   }
 }
