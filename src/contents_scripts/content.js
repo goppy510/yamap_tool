@@ -61,12 +61,15 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 
   // 活動記録本文を取得
   function getBody() {
-    const result = document.getElementsByClassName("Article__Description LinkableText")[0].innerText;
-    return result;
+    const body = document.getElementsByClassName("Article__Description LinkableText")[0];
+    return body === undefined ? '' : body.innerText;
   }
 
   // 活動記録を整形する
   function formatBody() {
+    if (getBody() === undefined) {
+      return '';
+    }
     const arrayBody = splitByNewline(getBody());
     return htmlBody(arrayBody);
   }
@@ -96,16 +99,14 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 
   // 活動記録写真部分を取得
   function getImageBody() {
-    const result = document.getElementsByClassName("ImagesGalleryList")[0].getElementsByTagName('img');
-    // altとsrcを抜き出す処理が必要
-    // imgタグをpタグで囲みその下にaltをテキストとして入れる処理を書く
-    return result;
+    const img = document.getElementsByClassName("ImagesGalleryList")[0];
+    return img === undefined ? '' : img.getElementsByTagName('img');
   }
 
   // 写真をhtmlに変換して出力
   function formatImages() {
     const arrayImg = getImageBody();
-    return htmlImages(arrayImg);
+    return arrayImg === undefined ? '' : htmlImages(arrayImg);
   }
 
   // 写真配列をイメタグhtmlに変換
