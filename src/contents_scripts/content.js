@@ -2,11 +2,11 @@
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 
   if (request.url !== undefined) {
-    // バックグラウンドに処理をするように指示
-    const url = request.url;
-    chrome.runtime.sendMessage( {url: url}, function (response) {
-      console.log("OK");
-    } );
+    // // バックグラウンドに処理をするように指示
+    // const url = request.url;
+    // chrome.runtime.sendMessage( {url: url}, function (response) {
+    //   console.log("OK");
+    // } );
 
     console.log(getAuthor());
     console.log(getTitle());
