@@ -3,14 +3,16 @@ window.addEventListener('DOMContentLoaded', function() {
   // 現在のタブのURLを取得して比較する
   chrome.tabs.getSelected( null, function(tab) {
     const tagExport = document.getElementsByClassName('export');
-    if ( /https:\/\/yamap.com\/activities\/[0-9].+\/article/.test(tab.url)) {
+    const pattern = /https:\/\/yamap.com\/activities\/[0-9].+\/article/;
+    if ( pattern.test(tab.url)) {
       // 活動日記のURLのとき
       createButton(tagExport);
       const exportBtn = document.getElementById('submit');
+
       // ボタンが押されたということをcontents_scriptsに送る
       exportBtn.onclick = () => {
         chrome.tabs.query( {active: true, currentWindow: true}, function(tabs) {
-          chrome.tabs.sendMessage( tabs[0].id, {pushed: true}, function(item) {
+          chrome.tabs.sendMessage( tabs[0].id, {url: tabs[0].url}, function(item) {
             console.log("export button pushed");
           } );
         } );
