@@ -10,7 +10,8 @@
   },
   "permissions": [
     "background",
-    "tabs"
+    "tabs",
+    "downloads"
   ],
   "content_scripts": [{
     "matches": ["https://yamap.com/activities/*/article"],
