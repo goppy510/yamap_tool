@@ -1,24 +1,6 @@
-# yamap_tool
+# YAMAPの活動記録をバックアップするChrome拡張機能
+## 概要
+* YAMAPの活動記録をMovable Typeで出力する拡張機能です
+* ボタン1つでテキストファイルをダウンロードできます
+* そのファイルをはてなブログやWordPressでインポートすればブログとして使えます
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
