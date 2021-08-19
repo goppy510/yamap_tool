@@ -36,5 +36,8 @@ function currentDate() {
     const yyyy = dt.getFullYear();
     const mm   = (dt.getMonth()+1).toString().padStart(2, '0');
     const dd   = dt.getDate();
-    return [yyyy, mm, dd].join('');
+    const hh   = (dt.getHours()).toString().padStart(2, '0');
+    const mi   = (dt.getMinutes()).toString().padStart(2, '0');
+    const ss   = (dt.getSeconds()).toString().padStart(2, '0');
+    return [yyyy, mm, dd, hh, mi, ss].join('');
 }
