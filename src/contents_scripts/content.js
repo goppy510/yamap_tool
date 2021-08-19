@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
     const blob = new Blob(mvFormat, {type: "application/octet-stream"});
     const dlURL = URL.createObjectURL(blob);
     chrome.runtime.sendMessage( {url: dlURL}, function(response) {
-      console.log("Downloading...");
+      URL.revokeObjectURL(dlURL);
     } );
     sendResponse();
     return true;
