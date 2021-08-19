@@ -57,8 +57,14 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
     return result;
   }
 
+  // 活動記録を整形する
+  function formatBody() {
+    const arrayBody = splitByNewline(getBody());
+    return htmlBody(arrayBody);
+  }
+
   // 活動記録本文をhtmlに変換
-  function toHtml(array) {
+  function htmlBody(array) {
     let tmp = [];
     for(let i=0; i<array.length; ++i) {
       const str = format([array[i]]);
@@ -86,5 +92,36 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
     // altとsrcを抜き出す処理が必要
     // imgタグをpタグで囲みその下にaltをテキストとして入れる処理を書く
     return result;
+  }
+
+  // 写真をhtmlに変換して出力
+  function formatImages() {
+    const arrayImg = getImageBody();
+    return htmlImages(arrayImg);
+  }
+
+  // 写真配列をイメタグhtmlに変換 
+  function htmlImages(array) {
+    let tmp = [];
+    for(let i=0; i<array.length; ++i) {
+      const str = remakeImg(array[i]);
+      tmp.push(str);
+    }
+    return tmp.join('');
+  }
+
+  // 活動記録写真のタグを再構築する
+  function remakeImg(tag) {
+    const src = tag.getAttribute('data-src');
+    const alt = tag.getAttribute('alt');
+    const result = `<img src=${src} itemprop="image"><p>${alt}</p>\n`;
+    return result;
+  }
+
+  // 本文と写真部分を結語する
+  function union() {
+    const body = formatBody();
+    const images = formatImages();
+    return `${body}\n\n</br></br></br>\n\n${images}\n`;
   }
 });
