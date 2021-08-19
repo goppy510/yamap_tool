@@ -9,8 +9,10 @@ window.addEventListener('DOMContentLoaded', function() {
       const exportBtn = document.getElementById('submit');
       // ボタンが押されたということをcontents_scriptsに送る
       exportBtn.onclick = () => {
-        chrome.runtime.sendMessage( {pushed: true}, function(response) {
-          console.log("export button pushed");
+        chrome.tabs.query( {active: true, currentWindow: true}, function(tabs) {
+          chrome.tabs.sendMessage( tabs[0].id, {pushed: true}, function(item) {
+            console.log("export button pushed");
+          } );
         } );
       }
     } else {
