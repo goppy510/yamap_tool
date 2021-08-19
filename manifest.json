@@ -1,8 +1,8 @@
 {
-  "name": "Export Report",
+  "name": "YAMAP活動記録バックアップ",
   "version": "1.0.0",
   "manifest_version": 2,
-  "description": "YAMAPの活動記録を出力する拡張機能です。",
+  "description": "YAMAPの活動記録をmovable type形式で出力する拡張機能です。",
   "icons": {
     "16": "src/assets/tabi_camera_nikki_16.png",
     "48": "src/assets/tabi_camera_nikki_48.png",
@@ -25,7 +25,7 @@
     "default_icon": {
       "19": "src/assets/tabi_camera_nikki_19.png"
     },
-    "default_title": "Export Report",
+    "default_title": "YAMAP活動記録バックアップ",
     "default_popup": "src/popup/popup.html"
   }
 }
