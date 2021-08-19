@@ -8,15 +8,23 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
     //   console.log("OK");
     // } );
     // ファイル出力用にJOSN形式でまとめる
-    const array = [
-      `AUTHOR: ${getAuthor()}\n`,
-      `TITLE: ${getTitle()}\n`,
-      `STATUS: ${getStatus()}\n`,
-      `ALLOW COMMENTS: 0\n`,
-      `DATE: ${getPostDate()}\n`,
-      '-----\n',
-      `BODY: ${}\n`,
+    const mvFormat = [
+    `AUTHOR: ${getAuthor()}\n`,
+    `TITLE: ${getTitle()}\n`,
+    `STATUS: ${getStatus()}\n`,
+    `ALLOW COMMENTS: 0\n`,
+    `DATE: ${getPostDate()}\n`,
+    `-----\n`,
+    `BODY:\n${union()}`,
+    `-----\n`,
+    `--------\n`
     ];
+    // テキストファイルを作る
+    const blob = new Blob(mvFormat, {type: "application/octet-stream"});
+    const dlURL = URL.createObjectURL(blob);
+    chrome.runtime.sendMessage( {url: dlURL}, function(response) {
+      console.log("Downloading...");
+    } );
     sendResponse();
     return true;
   }
@@ -100,7 +108,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
     return htmlImages(arrayImg);
   }
 
-  // 写真配列をイメタグhtmlに変換 
+  // 写真配列をイメタグhtmlに変換
   function htmlImages(array) {
     let tmp = [];
     for(let i=0; i<array.length; ++i) {
