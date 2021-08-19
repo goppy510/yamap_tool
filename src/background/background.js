@@ -1,7 +1,6 @@
 chrome.runtime.onMessage.addListener( function(message, sender, sendResponse) {
-    const url = message.url;
     chrome.downloads.download( {
-        url: url,
+        url: message.url,
         filename: `yamap_report_${currentDate()}.txt`
     });
     sendResponse();
