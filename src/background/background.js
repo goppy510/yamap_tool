@@ -1,3 +1,13 @@
+chrome.runtime.onMessage.addListener( function(message, sender, sendResponse) {
+    const url = message.url;
+    chrome.downloads.download( {
+        url: url,
+        filename: `yamap_report_${currentDate()}.txt`
+    });
+    sendResponse();
+    return true;
+});
+
 // chrome.runtime.onMessage.addListener( function(message, sender, sendResponse) {
 //     const url = message.url;
 //     if (url !== undefined) {
@@ -19,3 +29,12 @@
 //       return commentForm === undefined ? 0 : 1;
 //     }
 // } );
+
+// 現在日をyyyymmdd形式で取得する
+function currentDate() {
+    const dt = new Date();
+    const yyyy = dt.getFullYear();
+    const mm   = (dt.getMonth()+1).toString().padStart(2, '0');
+    const dd   = dt.getDate();
+    return [yyyy, mm, dd].join('');
+}
