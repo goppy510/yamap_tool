@@ -1,4 +1,4 @@
-window.onload = () => {
+window.addEventListener('DOMContentLoaded', function() {
 
   // 現在のタブのURLを取得して比較する
   chrome.tabs.getSelected( null, function(tab) {
@@ -6,19 +6,32 @@ window.onload = () => {
     if ( /https:\/\/yamap.com\/activities\/[0-9].+\/article/.test(tab.url)) {
       // 活動日記のURLのとき
       createButton(tagExport);
+  // エクスポートボタンが押されたらhtmlを取得する
+  const exportButton = document.getElementById('submit');
+  exportButton.onclick = () => {
+    console.log(getAuthor());
+    chrome.storage.local.set( {
+      content: {
+        author: getAuthor(),
+        title: getTitle(),
+        status: getStatus(),
+        commentable: isCommentable(),
+        date: getPostDate(),
+        body: getBody(),
+        images: getImageBody()
+      },
+    }, () => {
+      chrome.storage.local.get( content, items => {
+        window.alert(items.content.author);
+      } );
+    } );
+  }
     } else {
       createErrorMessage(tagExport);
     }
   } );
 
-  // // エクスポートボタンが押されたらhtmlを取得する
-  // const exportButton = document.getElementById('submit');
-  // exportButton.onclick = () => {
-  //   // 
-  //   chrome.storage.local.set( {
-  //     selected_html: 
-  //   })
-  // }
+
 
   // 著者取得
   function getAuthor() {
@@ -77,6 +90,7 @@ window.onload = () => {
     // imgタグをpタグで囲みその下にaltをテキストとして入れる処理を書く
     return result;
   }
+
   // エクスポートボタンを作成するメソッド
   function createButton(element) {
     var btn = document.createElement('button');
@@ -105,4 +119,4 @@ window.onload = () => {
     const textNode = document.createTextNode(message);
     element.appendChild(textNode);
   }
-}
+});
