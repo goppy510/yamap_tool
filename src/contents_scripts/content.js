@@ -7,14 +7,16 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
     // chrome.runtime.sendMessage( {url: url}, function (response) {
     //   console.log("OK");
     // } );
-
-    console.log(getAuthor());
-    console.log(getTitle());
-    console.log(getStatus());
-    // console.log(isCommentable());
-    console.log(getPostDate());
-    console.log(getBody());
-    console.log(getImageBody());
+    // ファイル出力用にJOSN形式でまとめる
+    const array = [
+      `AUTHOR: ${getAuthor()}\n`,
+      `TITLE: ${getTitle()}\n`,
+      `STATUS: ${getStatus()}\n`,
+      `ALLOW COMMENTS: 0\n`,
+      `DATE: ${getPostDate()}\n`,
+      '-----\n',
+      `BODY: ${}\n`,
+    ];
     sendResponse();
     return true;
   }
@@ -53,6 +55,29 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
   function getBody() {
     const result = document.getElementsByClassName("Article__Description LinkableText")[0].innerText;
     return result;
+  }
+
+  // 活動記録本文をhtmlに変換
+  function toHtml(array) {
+    let tmp = [];
+    for(let i=0; i<array.length; ++i) {
+      const str = format([array[i]]);
+      tmp.push(str);
+    }
+    return tmp.join('');
+  }
+
+  // 活動記録を改行コードで区切って配列化
+  function splitByNewline(str) {
+    return str.split('\n');
+  }
+
+  // 活動記録本文をhtmlタグに整形する
+  function format(str) {
+    if (str.length === 0) {
+      return '</br>\n';
+    }
+    return `<p>${str}</p>\n`;
   }
 
   // 活動記録写真部分を取得
