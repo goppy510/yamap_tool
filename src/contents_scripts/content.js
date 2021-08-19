@@ -1,8 +1,18 @@
-window.addEventListener('DOMContentLoaded', function() {
-  
-  
-  
-  
+// popupからメッセージを受け取ったら処理開始
+chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
+
+  if (request.pushed === true) {
+    console.log(getAuthor());
+    console.log(getTitle());
+    console.log(getStatus());
+    // console.log(isCommentable());
+    console.log(getPostDate());
+    console.log(getBody());
+    console.log(getImageBody());
+    sendResponse();
+    return true;
+  }
+
   // 著者取得
   function getAuthor() {
     const author = document.getElementsByClassName('ActivityDetailTabLayout__UserName')[0].innerText;
@@ -16,7 +26,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
   // 公開ならMV形式に合わせてPUBLICを、非公開ならDRAFTを返す
   function getStatus() {
-    const publicType = document.getElementsByClassName("ActivityDetailTabLayout__Header__PublicType");
+    const publicType = document.getElementsByClassName("ActivityDetailTabLayout__Header__PublicType")[0];
     if (publicType === undefined) {
       return 'Public';
     }
