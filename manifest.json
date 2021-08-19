@@ -10,11 +10,10 @@
   },
   "permissions": [
     "background",
-    "contextMenus",
     "tabs"
   ],
   "content_scripts": [{
-    "matches": ["https://yamap.com/activities/*"],
+    "matches": ["https://yamap.com/activities/*/article"],
     "js": [
       "dist/js/app.js",
       "dist/js/chunk-vendors.js"
