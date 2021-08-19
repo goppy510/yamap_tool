@@ -13,7 +13,6 @@ window.addEventListener('DOMContentLoaded', function() {
       exportBtn.onclick = () => {
         chrome.tabs.query( {active: true, currentWindow: true}, function(tabs) {
           chrome.tabs.sendMessage( tabs[0].id, {url: tabs[0].url}, function(item) {
-            console.log("export button pushed");
           } );
         } );
       }
