@@ -13,7 +13,7 @@
     "tabs"
   ],
   "content_scripts": [{
-    "matches": ["https://yamap.com/activities/*/article"],
+    "matches": ["https://yamap.com/activities/*/article", "https://yamap.com/activities/*/comments#post"],
     "js": [
       "dist/js/app.js",
       "dist/js/chunk-vendors.js"
