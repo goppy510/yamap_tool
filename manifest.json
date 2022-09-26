@@ -13,10 +13,13 @@
     "tabs",
     "downloads"
   ],
-  "content_scripts": [{
+  "content_scripts": [
+    {
     "matches": ["https://yamap.com/activities/*/article"],
-    "js": ["src/contents_scripts/content.js"]
-  }],
+    "js": ["src/contents_scripts/content.js"],
+    "run_at":"document_start"
+  }
+],
   "background": {
     "matches": ["https://yamap.com/activities/*/comments#post"],
     "scripts": ["src/background/background.js"]
